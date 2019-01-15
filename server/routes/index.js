@@ -7,7 +7,7 @@ const { actorUrl, getCast } = require('../utils');
 let actor;
 
 router.post('/search-actor', (req, res) => {
-  actor = req.query.actor.trim();
+  actor = req.body.actor.trim();
   if (getCast().has(actor)) res.redirect('/actor-page');
   else res.redirect('/error');
 });
