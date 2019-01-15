@@ -1,27 +1,37 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showResults: false
+    };
+  }
+
+  onClick() {
+    this.setState({ showResults: true });
+  }
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        CRAi
+        <br />
+        <br />
+        {/* <form method="POST" action="/search-actor"> */}
+        <input name="actor" placeholder="Actor's name..." />
+        <button onClick={() => this.onClick()}>Enter</button>
+        {this.state.showResults ? <Results /> : null}
+        {/* </form> */}
       </div>
     );
+  }
+}
+
+class Results extends Component {
+  render() {
+    return <div id="results">Some results</div>;
   }
 }
 
