@@ -1,21 +1,23 @@
 var express = require('express');
 var router = express.Router();
-const { actorUrl } = require('../utils');
-const rp = require('request-promise');
-require('dotenv').load();
+const axios = require('axios');
+const { actorUrl, getCast } = require('../utils');
 
-let actor = 'Henry Golding';
+let actor;
 
 router.post('/search-actor', (req, res) => {
-  actor = req.body.actor;
-  res.redirect('/actor-page');
+  actor = req.query.actor.trim();
+  if (getCast().has(actor)) res.redirect('/actor-page');
+  else res.redirect('/error');
 });
 
-/* GET home page. */
-router.get('/actor-info', function(req, res, next) {
-  rp(actorUrl(actor)).then(data => {
-    res.render('index', { data });
-  });
+router.get('/search-actor-info', function(req, res, next) {
+  axios
+    .get(actorUrl(actor))
+    .then(data => {
+      res.send({ data });
+    })
+    .catch(err => res.redirect('/error'));
 });
 
 module.exports = router;

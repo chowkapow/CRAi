@@ -1,25 +1,24 @@
-const rp = require('request-promise');
-require('dotenv').load();
+const axios = require('axios');
 
 const cast = new Map();
 
 const options = {
   method: 'GET',
   url: 'https://api.themoviedb.org/3/movie/455207',
-  qs: {
+  params: {
     language: 'en-US',
     api_key: process.env.TMDB_API_KEY,
     append_to_response: 'credits'
   }
 };
-rp(options)
+
+axios(options)
   .then(body => {
-    cra = JSON.parse(body);
+    const cra = body.data;
     for (let i = 0; i < cra.credits.cast.length; i++) {
       actor = cra.credits.cast[i];
       cast.set(actor.name, actor.id);
     }
-    console.log('test');
   })
   .catch(err => console.log(err));
 
