@@ -1,24 +1,26 @@
 const express = require('express');
 const router = express.Router();
-const axios = require('axios');
 
-const { actorUrl, getCast } = require('../utils');
+const { getActorFilmography, getCast, getActorPicture } = require('../utils');
 
 let actor;
 
 router.post('/search-actor', (req, res) => {
   actor = req.body.actor.trim();
-  if (getCast().has(actor)) res.redirect('/actor-page');
+
+  if (!getCast().has(actor)) res.redirect('/error');
+  else res.sendStatus(200);
+});
+
+router.get('/search-actor-filmography', async (req, res) => {
+  const filmography = await getActorFilmography(actor);
+  if (filmography) res.send({ filmography });
   else res.redirect('/error');
 });
 
-router.get('/search-actor-info', function(req, res, next) {
-  axios
-    .get(actorUrl(actor))
-    .then(data => {
-      res.send({ data });
-    })
-    .catch(err => res.redirect('/error'));
+router.get('/search-actor-picture', async (req, res) => {
+  const picture = await getActorPicture(actor);
+  if (picture) res.send({ picture });
 });
 
 module.exports = router;
