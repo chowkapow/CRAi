@@ -9,8 +9,15 @@ class App extends Component {
     };
   }
 
-  onClick() {
-    this.setState({ showResults: true });
+  async onClick() {
+    const res = await fetch('/search-actor', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        actor: document.getElementById('actor').value
+      })
+    });
+    if (res.status === 200) this.setState({ showResults: true });
   }
 
   render() {
@@ -19,19 +26,39 @@ class App extends Component {
         CRAi
         <br />
         <br />
-        {/* <form method="POST" action="/search-actor"> */}
-        <input name="actor" placeholder="Actor's name..." />
-        <button onClick={() => this.onClick()}>Enter</button>
-        {this.state.showResults ? <Results /> : null}
-        {/* </form> */}
+        <div>
+          <input id="actor" name="actor" placeholder="Actor's name..." />
+          <button onClick={() => this.onClick()}>Enter</button>
+          {this.state.showResults ? <Results /> : null}
+        </div>
       </div>
     );
   }
 }
 
 class Results extends Component {
+  constructor() {
+    super();
+    this.state = { filmography: [] };
+  }
+  componentDidMount() {
+    fetch('/actor-filmography')
+      .then(res => res.json())
+      .then(res => {
+        const filmography = res.cast;
+        this.setState({ filmography });
+      });
+  }
   render() {
-    return <div id="results">Some results</div>;
+    return (
+      <div id="results">
+        {this.state.filmography.map(film => (
+          <h1 key={film.id}>
+            {film.title} as {film.character}
+          </h1>
+        ))}
+      </div>
+    );
   }
 }
 
