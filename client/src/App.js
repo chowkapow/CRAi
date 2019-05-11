@@ -10,6 +10,7 @@ class App extends Component {
   }
 
   async onClick() {
+    this.setState({ showResults: false });
     const res = await fetch('/search-actor', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
