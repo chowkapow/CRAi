@@ -39,7 +39,7 @@ axios(options.movieCast)
   .then(res => {
     const cra = res.data;
     for (let i = 0; i < cra.credits.cast.length; i++) {
-      actor = cra.credits.cast[i];
+      let actor = cra.credits.cast[i];
       cast.set(actor.name, actor.id);
     }
   })
