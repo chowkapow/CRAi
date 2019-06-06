@@ -2,23 +2,29 @@ import React, { Component } from 'react';
 import './App.css';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
+      value: '',
+      filmography: [],
       showResults: false
     };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  async onClick() {
+  handleChange(event) {
+    this.setState({ value: event.target.value });
+  }
+
+  async handleSubmit(event) {
+    event.preventDefault();
     this.setState({ showResults: false });
-    const res = await fetch('/search-actor', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        actor: document.getElementById('actor').value
-      })
-    });
-    if (res.status === 200) this.setState({ showResults: true });
+    const res = await fetch('/actor-filmography?actor=' + this.state.value);
+    if (res.status === 200) {
+      const cast = (await res.json()).cast;
+      this.setState({ showResults: true, filmography: cast });
+    }
   }
 
   render() {
@@ -28,9 +34,20 @@ class App extends Component {
         <br />
         <br />
         <div>
-          <input id="actor" name="actor" placeholder="Actor's name..." />
-          <button onClick={() => this.onClick()}>Enter</button>
-          {this.state.showResults ? <Results /> : null}
+          <form onSubmit={this.handleSubmit}>
+            <input
+              type="text"
+              name="actor"
+              value={this.state.value}
+              onChange={this.handleChange}
+              placeholder="Actor's name..."
+            />
+            <input type="submit" />
+          </form>
+
+          {this.state.showResults ? (
+            <Results filmography={this.state.filmography} />
+          ) : null}
         </div>
       </div>
     );
@@ -38,18 +55,11 @@ class App extends Component {
 }
 
 class Results extends Component {
-  constructor() {
-    super();
-    this.state = { filmography: [] };
+  constructor(props) {
+    super(props);
+    this.state = { filmography: props.filmography || [] };
   }
-  componentDidMount() {
-    fetch('/actor-filmography')
-      .then(res => res.json())
-      .then(res => {
-        const filmography = res.cast;
-        this.setState({ filmography });
-      });
-  }
+
   render() {
     return (
       <div id="results">
