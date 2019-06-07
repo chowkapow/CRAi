@@ -35,27 +35,34 @@ const options = {
   }
 };
 
-axios(options.movieCast)
-  .then(res => {
-    const cra = res.data;
+export async function setCast() {
+  try {
+    const cra = (await axios(options.movieCast)).data;
     for (let i = 0; i < cra.credits.cast.length; i++) {
       let actor = cra.credits.cast[i];
       cast.set(actor.name, actor.id);
     }
-  })
-  .catch(err => console.log(err));
+  } catch (err) {
+    console.log(err);
+  }
+}
 
 const utils = {
-  getActorFilmography: actor => {
-    return axios(options.actorFilmography(cast.get(actor)))
-      .then(res => res.data)
-      .catch(err => console.log(err));
+  getActorFilmography: async actor => {
+    try {
+      return (await axios(options.actorFilmography(cast.get(actor)))).data;
+    } catch (err) {
+      console.log(err);
+    }
   },
   getCast: () => cast,
-  getActorPicture: actor =>
-    axios(options.actorPicture(cast.get(actor)))
-      .then(res => res.data)
-      .catch(err => console.log(err))
+  getActorPicture: async actor => {
+    try {
+      return (await axios(options.actorPicture(cast.get(actor)))).data;
+    } catch (err) {
+      console.log(err);
+    }
+  }
 };
 
-module.exports = utils;
+export default utils;
