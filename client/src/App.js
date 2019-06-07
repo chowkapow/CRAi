@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 
+import Results from './components/Results';
+
 class App extends Component {
   constructor() {
     super();
@@ -49,25 +51,6 @@ class App extends Component {
             <Results filmography={this.state.filmography} />
           ) : null}
         </div>
-      </div>
-    );
-  }
-}
-
-class Results extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { filmography: props.filmography || [] };
-  }
-
-  render() {
-    return (
-      <div id="results">
-        {this.state.filmography.map(film => (
-          <h1 key={film.id}>
-            {film.title} as {film.character}
-          </h1>
-        ))}
       </div>
     );
   }
