@@ -72,7 +72,7 @@ class App extends Component {
               renderSuggestion={renderSuggestion}
               inputProps={inputProps}
             />
-            <input type="submit" />
+            <input className="hide" type="submit" />
           </form>
 
           {this.state.showResults ? (
