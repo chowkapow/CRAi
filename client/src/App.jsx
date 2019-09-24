@@ -72,7 +72,7 @@ class App extends Component {
 
     return (
       <div className="App">
-        CRAi
+        <h1>The Crazy Rich Asians Index</h1>
         <br />
         <br />
         <div>

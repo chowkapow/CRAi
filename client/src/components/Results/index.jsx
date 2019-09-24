@@ -13,14 +13,18 @@ class Results extends Component {
 
   render() {
     return (
-      <div id="results">
+      <div className="container">
         <img className="picture" src={this.state.picture} />
-        {this.state.filmography.map(film => (
-          <h1 key={film.id}>
-            {film.title} as {film.character} (
-            {film.release_date.substring(0, 4) || 'TBD'})
-          </h1>
-        ))}
+        <div className="filmography-container">
+          <ul className="filmography-list">
+            {this.state.filmography.map(film => (
+              <li key={film.id} className="filmography-list-item">
+                {film.title} as {film.character} (
+                {film.release_date.substring(0, 4) || 'TBD'})
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     );
   }
