@@ -26,8 +26,8 @@ class App extends Component {
     this.setState({ showResults: false });
     const res = await fetch('/actor-filmography?actor=' + this.state.value);
     if (res.status === 200) {
-      const cast = (await res.json()).cast;
-      this.setState({ showResults: true, filmography: cast });
+      const filmography = await res.json();
+      this.setState({ showResults: true, filmography: filmography });
     }
   }
 

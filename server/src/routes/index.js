@@ -5,7 +5,8 @@ const router = express.Router();
 
 router.get('/actor-filmography', async (req, res) => {
   const filmography = await utils.getActorFilmography(req.query.actor);
-  if (filmography) res.send(filmography);
+  if (filmography)
+    res.send(filmography.cast.filter(film => film.title && film.character));
   else res.redirect('/error');
 });
 
