@@ -8,7 +8,19 @@ export const getSuggestions = value => {
   return inputLength === 0
     ? []
     : cast.filter(
-        actor => actor.name.toLowerCase().slice(0, inputLength) === inputValue
+        actor =>
+          actor.name.toLowerCase().slice(0, inputLength) === inputValue ||
+          (actor.name.split(' ').length > 1 &&
+            actor.name
+              .split(' ')[1]
+              .toLowerCase()
+              .slice(0, inputLength) === inputValue) ||
+          actor.character.toLowerCase().slice(0, inputLength) === inputValue ||
+          (actor.character.split(' ').length > 1 &&
+            actor.character
+              .split(' ')[1]
+              .toLowerCase()
+              .slice(0, inputLength) === inputValue)
       );
 };
 
