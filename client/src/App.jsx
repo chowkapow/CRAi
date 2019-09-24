@@ -16,7 +16,8 @@ class App extends Component {
       value: '',
       suggestions: [],
       showResults: false,
-      filmography: []
+      filmography: [],
+      picture: ''
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -24,10 +25,22 @@ class App extends Component {
   async handleSubmit(event) {
     event.preventDefault();
     this.setState({ showResults: false });
-    const res = await fetch('/actor-filmography?actor=' + this.state.value);
-    if (res.status === 200) {
-      const filmography = await res.json();
-      this.setState({ showResults: true, filmography: filmography });
+    const filmography = await fetch(
+      '/actor-filmography?actor=' + this.state.value
+    );
+    const picture = await fetch('/actor-picture?actor=' + this.state.value);
+    if (filmography.status === 200 && picture.status === 200) {
+      const filmographyJSON = await filmography.json();
+      const pictureJSON = await picture.json();
+      this.setState({
+        showResults: true,
+        filmography: filmographyJSON,
+        picture:
+          'http://image.tmdb.org/t/p/original' +
+          pictureJSON.profiles[
+            Math.floor(Math.random() * Math.floor(pictureJSON.profiles.length))
+          ].file_path
+      });
     }
   }
 
@@ -76,7 +89,10 @@ class App extends Component {
           </form>
 
           {this.state.showResults ? (
-            <Results filmography={this.state.filmography} />
+            <Results
+              filmography={this.state.filmography}
+              picture={this.state.picture}
+            />
           ) : null}
         </div>
       </div>

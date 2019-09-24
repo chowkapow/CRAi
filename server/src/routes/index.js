@@ -11,8 +11,9 @@ router.get('/actor-filmography', async (req, res) => {
 });
 
 router.get('/actor-picture', async (req, res) => {
-  const picture = await utils.getActorPicture(actor);
+  const picture = await utils.getActorPicture(req.query.actor);
   if (picture) res.send(picture);
+  else res.redirect('/error');
 });
 
 export default router;
