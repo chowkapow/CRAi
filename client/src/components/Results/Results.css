@@ -16,9 +16,18 @@
 
 .filmography-list {
   list-style-type: none;
+  text-align: left;
 }
 
 .filmography-list-item {
   padding: 2px 2px;
   margin: 5px 5px;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.light {
+  font-weight: 100;
 }
