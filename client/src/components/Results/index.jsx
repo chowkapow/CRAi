@@ -14,7 +14,11 @@ class Results extends Component {
   render() {
     return (
       <div className="container">
-        <img className="picture" src={this.state.picture} />
+        <img
+          className="picture"
+          src={this.state.picture}
+          alt="actor headshot"
+        />
         <div className="filmography-container">
           <ul className="filmography-list">
             {this.state.filmography.map(film => (
