@@ -1,10 +1,12 @@
 import express from 'express';
+import { capitalize } from './utils';
 import utils from './utils';
 
 const router = express.Router();
 
 router.get('/actor-filmography', async (req, res) => {
-  const filmography = await utils.getActorFilmography(req.query.actor);
+  const actor = capitalize(req.query.actor);
+  const filmography = await utils.getActorFilmography(actor);
   if (filmography)
     res.send(
       filmography.cast
@@ -15,7 +17,8 @@ router.get('/actor-filmography', async (req, res) => {
 });
 
 router.get('/actor-picture', async (req, res) => {
-  const picture = await utils.getActorPicture(req.query.actor);
+  const actor = capitalize(req.query.actor);
+  const picture = await utils.getActorPicture(actor);
   if (picture) res.send(picture);
   else res.redirect('/error');
 });

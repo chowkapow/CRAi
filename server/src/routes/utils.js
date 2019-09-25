@@ -47,6 +47,13 @@ export async function setCast() {
   }
 }
 
+export function capitalize(words) {
+  return words
+    .split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(' ');
+}
+
 const utils = {
   getActorFilmography: async actor => {
     try {
