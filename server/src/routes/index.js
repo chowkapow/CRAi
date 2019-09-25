@@ -6,7 +6,11 @@ const router = express.Router();
 router.get('/actor-filmography', async (req, res) => {
   const filmography = await utils.getActorFilmography(req.query.actor);
   if (filmography)
-    res.send(filmography.cast.filter(film => film.title && film.character));
+    res.send(
+      filmography.cast
+        .filter(film => film.title && film.character)
+        .sort((a, b) => new Date(b.release_date) - new Date(a.release_date))
+    );
   else res.redirect('/error');
 });
 
