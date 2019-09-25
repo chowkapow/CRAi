@@ -1,4 +1,6 @@
 import React from 'react';
+import AutosuggestHighlightMatch from 'autosuggest-highlight/match';
+import AutosuggestHighlightParse from 'autosuggest-highlight/parse';
 import { cast } from '../../constants';
 
 export const getSuggestions = value => {
@@ -26,4 +28,20 @@ export const getSuggestions = value => {
 
 export const getSuggestionValue = suggestion => suggestion.name;
 
-export const renderSuggestion = suggestion => <span>{suggestion.name}</span>;
+export const renderSuggestion = (suggestion, { query }) => {
+  const matches = AutosuggestHighlightMatch(suggestion.name, query);
+  const parts = AutosuggestHighlightParse(suggestion.name, matches);
+  return (
+    <span className="name">
+      {parts.map((part, index) => {
+        const className = part.highlight ? 'highlight' : null;
+
+        return (
+          <span className={className} key={index}>
+            {part.text}
+          </span>
+        );
+      })}
+    </span>
+  );
+};
