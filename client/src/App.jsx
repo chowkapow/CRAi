@@ -89,12 +89,12 @@ class App extends Component {
             <input className="hide" type="submit" />
           </form>
 
-          {this.state.showResults ? (
+          {this.state.showResults && (
             <Results
               filmography={this.state.filmography}
               picture={this.state.picture}
             />
-          ) : null}
+          )}
         </div>
       </div>
     );
