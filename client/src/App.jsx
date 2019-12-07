@@ -58,9 +58,8 @@ class App extends Component {
   };
 
   onSuggestionsFetchRequested = ({ value }) => {
-    const { cast } = this.state;
     this.setState({
-      suggestions: getSuggestions(cast, value)
+      suggestions: getSuggestions(this.state.cast, value)
     });
   };
 
