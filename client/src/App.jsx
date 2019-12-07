@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Autosuggest from 'react-autosuggest';
 
 import './App.css';
+import './components/Autosuggest/Autosuggest.css';
 import Results from './components/Results';
 import {
   getSuggestions,
@@ -78,31 +79,30 @@ class App extends Component {
     };
 
     return (
-      <div className="App">
-        <h1>The Crazy Rich Asians Index</h1>
-        <br />
-        <br />
-        <div>
-          <form onSubmit={this.handleSubmit}>
-            <Autosuggest
-              suggestions={suggestions}
-              onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-              onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-              getSuggestionValue={getSuggestionValue}
-              renderSuggestion={renderSuggestion}
-              inputProps={inputProps}
-              onSuggestionSelected={this.handleSubmit}
-            />
-            <input className="hide" type="submit" />
-          </form>
-
-          {this.state.showResults && (
-            <Results
-              filmography={this.state.filmography}
-              picture={this.state.picture}
-            />
-          )}
-        </div>
+      <div>
+        <section className="jumbotron text-center">
+          <div className="container">
+            <h1>The Crazy Rich Asians Index</h1>
+            <form onSubmit={this.handleSubmit}>
+              <Autosuggest
+                suggestions={suggestions}
+                onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+                onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+                getSuggestionValue={getSuggestionValue}
+                renderSuggestion={renderSuggestion}
+                inputProps={inputProps}
+                onSuggestionSelected={this.handleSubmit}
+              />
+              <input className="hide" type="submit" />
+            </form>
+          </div>
+        </section>
+        {this.state.showResults && (
+          <Results
+            filmography={this.state.filmography}
+            picture={this.state.picture}
+          />
+        )}
       </div>
     );
   }
