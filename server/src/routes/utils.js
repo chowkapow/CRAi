@@ -63,7 +63,11 @@ const utils = {
       console.log(err);
     }
   },
-  getCast: () => cast,
+  getCast: () =>
+    [...cast.keys()].reduce(
+      (arr, key) => (arr.push({ ['name']: key }), arr),
+      []
+    ),
   getActorPicture: async actor => {
     try {
       return (await axios(options.actorPicture(cast.get(actor)))).data;

@@ -1,9 +1,8 @@
 import React from 'react';
 import AutosuggestHighlightMatch from 'autosuggest-highlight/match';
 import AutosuggestHighlightParse from 'autosuggest-highlight/parse';
-import { cast } from '../../constants';
 
-export const getSuggestions = value => {
+export const getSuggestions = (cast, value) => {
   const inputValue = value.trim().toLowerCase();
   const inputLength = inputValue.length;
 
@@ -16,13 +15,13 @@ export const getSuggestions = value => {
             actor.name
               .split(' ')[1]
               .toLowerCase()
-              .slice(0, inputLength) === inputValue) ||
-          actor.character.toLowerCase().slice(0, inputLength) === inputValue ||
-          (actor.character.split(' ').length > 1 &&
-            actor.character
-              .split(' ')[1]
-              .toLowerCase()
-              .slice(0, inputLength) === inputValue)
+              .slice(0, inputLength) === inputValue) //||
+        // actor.character.toLowerCase().slice(0, inputLength) === inputValue ||
+        // (actor.character.split(' ').length > 1 &&
+        //   actor.character
+        //     .split(' ')[1]
+        //     .toLowerCase()
+        //     .slice(0, inputLength) === inputValue)
       );
 };
 

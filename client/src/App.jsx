@@ -13,6 +13,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
+      cast: [],
       value: '',
       suggestions: [],
       showResults: false,
@@ -22,13 +23,18 @@ class App extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  async componentDidMount() {
+    const cast = await (await fetch('/getCast')).json();
+    this.setState({ cast });
+  }
+
   async handleSubmit(event) {
     event.preventDefault();
     const value =
       event.type === 'click' ? event.currentTarget.innerText : this.state.value;
     this.setState({ showResults: false });
-    const filmography = await fetch('/actor-filmography?actor=' + value);
-    const picture = await fetch('/actor-picture?actor=' + value);
+    const filmography = await fetch('/actor/filmography?actor=' + value);
+    const picture = await fetch('/actor/picture?actor=' + value);
     if (filmography.status === 200 && picture.status === 200) {
       const filmographyJSON = await filmography.json();
       const pictureJSON = await picture.json();
@@ -51,8 +57,9 @@ class App extends Component {
   };
 
   onSuggestionsFetchRequested = ({ value }) => {
+    const { cast } = this.state;
     this.setState({
-      suggestions: getSuggestions(value)
+      suggestions: getSuggestions(cast, value)
     });
   };
 
