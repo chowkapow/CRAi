@@ -14,7 +14,7 @@ class Results extends Component {
   render() {
     return (
       <div className="container">
-        <div className="row">
+        <div className="row results">
           <div className="col-md-4">
             <img
               className="picture"

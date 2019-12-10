@@ -3,12 +3,13 @@ import Autosuggest from 'react-autosuggest';
 
 import './App.css';
 import './components/Autosuggest/Autosuggest.css';
-import Results from './components/Results';
 import {
   getSuggestions,
   getSuggestionValue,
   renderSuggestion
 } from './components/Autosuggest';
+import Footer from './components/Footer';
+import Results from './components/Results';
 
 class App extends Component {
   constructor() {
@@ -102,6 +103,7 @@ class App extends Component {
             picture={this.state.picture}
           />
         )}
+        <Footer />
       </div>
     );
   }
