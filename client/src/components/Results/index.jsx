@@ -26,9 +26,12 @@ class Results extends Component {
             <ul className="filmography-list">
               {this.state.filmography.map(film => (
                 <li key={film.id} className="filmography-list-item">
-                  <span className="bold">{film.title} </span>(
+                  <span className="bold">{film.title} </span>
                   <span className="light">
-                    {film.release_date.substring(0, 4) || 'TBD'}) |&nbsp;
+                    (
+                    {(film.release_date && film.release_date.substring(0, 4)) ||
+                      'TBD'}
+                    ) |{' '}
                   </span>
                   {film.character}
                 </li>

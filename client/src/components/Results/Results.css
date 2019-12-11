@@ -6,6 +6,10 @@
   margin: 50px 0px 50px 0px;
   list-style-type: none;
   text-align: left;
+  right: 0;
+  left: 0;
+  overflow-y: auto;
+  height: 500px;
 }
 
 .filmography-list-item {
@@ -20,8 +24,4 @@
 .picture {
   margin: 50px 0px 0px 50px;
   max-height: 20rem;
-}
-
-.results {
-  margin: 50px;
 }
