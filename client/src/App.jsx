@@ -103,6 +103,7 @@ class App extends Component {
             picture={this.state.picture}
           />
         )}
+        <br />
         <Footer />
       </div>
     );
