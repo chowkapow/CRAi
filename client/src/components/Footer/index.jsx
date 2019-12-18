@@ -7,8 +7,9 @@ class Footer extends Component {
       <footer className="footer fixed-bottom text-center text-muted">
         <div className="=container">
           <p>
-            Powered by <a href="http://themoviedb.org">TMDb</a> | Source on{' '}
-            <a href="https://github.com/chowkapow/CRAi">Github</a>
+            Powered by{' '}
+            <a href="https://www.themoviedb.org/documentation/api">TMDb</a> |
+            Source on <a href="https://github.com/chowkapow/CRAi">Github</a>
           </p>
         </div>
       </footer>
