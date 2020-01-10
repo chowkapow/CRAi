@@ -3,14 +3,6 @@ import React, { Component } from 'react';
 import './Results.css';
 
 class Results extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      filmography: props.filmography || [],
-      picture: props.picture || ''
-    };
-  }
-
   render() {
     return (
       <div className="container">
@@ -18,13 +10,13 @@ class Results extends Component {
           <div className="col-md-4">
             <img
               className="picture"
-              src={this.state.picture}
+              src={this.props.picture}
               alt="actor headshot"
             />
           </div>
           <div className="col-md-8">
             <ul className="filmography-list">
-              {this.state.filmography.map(film => (
+              {this.props.filmography.map(film => (
                 <li key={film.id} className="filmography-list-item">
                   <span className="bold">{film.title} </span>
                   <span className="light">
