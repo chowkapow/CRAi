@@ -25,9 +25,13 @@ class App extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  async componentDidMount() {
+  async getCast() {
     const cast = await (await fetch('/getCast')).json();
     this.setState({ cast });
+  }
+
+  componentDidMount() {
+    this.getCast();
   }
 
   async handleSubmit(event) {
